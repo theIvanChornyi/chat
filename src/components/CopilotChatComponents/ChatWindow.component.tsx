@@ -26,6 +26,10 @@ const ChatWindow: FC<IProps> = ({ children }) => {
     onSuccess: () => {
       setChatStarted();
     },
+    // temp
+    onError: () => {
+      setChatStarted();
+    },
   });
 
   const onSubmit = ({ predefined, prompt }: IForm) => {
