@@ -1,0 +1,37 @@
+@import '../../../mixins';
+@import '../../../variables';
+
+.chat {
+  @include column-container;
+  justify-content: space-between;
+  row-gap: 8px;
+  flex-grow: 1;
+
+  overflow-y: hidden;
+}
+
+.form {
+  @extend .chat;
+}
+
+.text-input {
+  width: 100%;
+  padding: 14.5px 16px;
+
+  font-size: 16px;
+
+  border: none;
+  background: $background-light-color;
+  border-radius: 50px;
+
+  &::placeholder {
+    color: $disabled-color;
+    font-family: $primary-font;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}

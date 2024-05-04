@@ -1,0 +1,13 @@
+@import '../../../mixins';
+@import '../../../variables';
+
+.copilot-message {
+  @include column-container;
+  row-gap: 8px;
+  background: $accent-color-second;
+  border-radius: 16px;
+  padding: 16px;
+  & span {
+    white-space: pre-line;
+  }
+}

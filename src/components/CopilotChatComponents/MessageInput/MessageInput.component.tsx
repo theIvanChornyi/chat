@@ -1,8 +1,9 @@
 import { ComponentPropsWithRef, FC, MouseEvent } from 'react';
-import css from '../CopilotChat.module.scss';
-import { DEFAULT_INPUT_CONFIG } from '../../const/input.config';
 import { useFormContext } from 'react-hook-form';
-import { FORM_NAMES } from '../../const/form-names.const';
+import { DEFAULT_INPUT_CONFIG } from '../../../const/input.config.const';
+import { FORM_NAMES } from '../../../const/form-names.const';
+import css from './MessageInput.module.scss';
+
 interface IProps extends ComponentPropsWithRef<'div'> {}
 
 const MessageInput: FC<IProps> = () => {
@@ -13,17 +14,23 @@ const MessageInput: FC<IProps> = () => {
 
   return (
     <ul className={css.input}>
-      {DEFAULT_INPUT_CONFIG.map(({ inputs, title }) => {
+      {DEFAULT_INPUT_CONFIG.map(({ inputs, title }, i) => {
         return (
           <li className={css['input__item']} key={title}>
-            <h2 className={css['input__title']}>{title}</h2>
+            <h2
+              className={`${css['input__title']} ${
+                i === 0 && css['input__title--strong']
+              }`}
+            >
+              {title}
+            </h2>
             <ul className={css['input__list']}>
               {inputs.map(value => {
                 return (
                   <li key={value}>
                     <button
                       onClick={onClick}
-                      className={css['input__list-item']}
+                      className={`${css['input__list-item']}`}
                       type="submit"
                       data-value={value}
                     >

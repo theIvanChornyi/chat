@@ -1,0 +1,27 @@
+@import '../../../mixins';
+@import '../../../variables';
+
+.message-list {
+  @include column-container;
+  row-gap: 8px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.user-message {
+  background: $secondary-color;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.loader {
+  @include center-container;
+  & img {
+    height: 20px;
+    object-fit: contain;
+  }
+}

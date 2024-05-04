@@ -1,42 +1,26 @@
 import { ComponentPropsWithRef, FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
-import css from '../CopilotChat.module.scss';
-import useStore from '../../store/store';
-import { FORM_NAMES } from '../../const/form-names.const';
-import { IForm } from '../../types/form.types';
+import useStore from '../../../store/store';
+import { FORM_NAMES } from '../../../const/form-names.const';
+import { IForm } from '../../../types/form.types';
+import { IChatRole } from '../../../types/chat-api.types';
+import { useChatGPTQuery } from '../../../hooks/useChatGPTQuery';
+import css from './ChatWindow.module.scss';
 
 interface IProps extends ComponentPropsWithRef<'div'> {}
 
-interface IGptData {
-  data: string;
-}
-
 const ChatWindow: FC<IProps> = ({ children }) => {
-  const { setChatStarted, setRequest } = useStore();
+  const { setChatStarted, addMessage } = useStore();
   const methods = useForm<IForm>();
-  const fetchData = async (query: string): Promise<IGptData> => {
-    return axios.get(query);
-  };
-
-  const mutation = useMutation<IGptData, AxiosError, string>({
-    mutationFn: fetchData,
-    mutationKey: [],
-    onSuccess: () => {
-      setChatStarted();
-    },
-    // temp
-    onError: () => {
-      setChatStarted();
-    },
-  });
+  const { mutate: postRequest } = useChatGPTQuery();
 
   const onSubmit = ({ predefined, prompt }: IForm) => {
     const request = prompt || predefined;
     if (!predefined && !prompt) return;
-    setRequest(request);
-    mutation.mutate(request);
+    const newMessage = { role: IChatRole.USER, content: request, token: 0 };
+    setChatStarted();
+    addMessage(newMessage);
+    postRequest([newMessage]);
     methods.reset();
   };
 

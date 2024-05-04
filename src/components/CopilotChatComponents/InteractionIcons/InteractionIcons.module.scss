@@ -1,0 +1,39 @@
+@import '../../../mixins';
+@import '../../../variables';
+
+.copilot-message__icons-lits {
+  display: flex;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.interactive-button {
+  @include center-container;
+
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+
+  border-radius: 50%;
+  transition: background-color linear 200ms;
+
+  flex-shrink: 0;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $hover-transparent-color;
+  }
+}
+
+.interactive-button--reverse {
+  transform: scaleY(-1);
+}
+
+.interactive-button--success {
+  outline: 1.5px solid $success-color;
+}
+
+.interactive-button--error {
+  outline: 1.5px solid $error-color;
+}
